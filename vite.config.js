@@ -1,16 +1,24 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 import path from 'path';
 import viteImagemin from 'vite-plugin-imagemin';
 import svgSprite from 'vite-svg-sprite-wrapper';
 import Spritesmith from 'vite-plugin-spritesmith';
 
-export default defineConfig(({ command, mode }) => {
-    const env = loadEnv(mode, process.cwd());
-
+export default defineConfig(({ command }) => {
     return {
         base: '/',
         root: path.resolve(__dirname, 'src'),
         build: {
+            minify: true,
+            cssCodeSplit: true,
+            terserOptions: {
+                format: {
+                    comments: true,
+                },
+            },
+            css: {
+                minify: true,
+            },
             outDir: '../build',
             rollupOptions: {
                 output: {
